@@ -110,6 +110,20 @@ if [ "${SUITE}" == "noble" ]; then
         echo "Pin-Priority: -1"
 
     ) > config/archives/extra-ppas-ignore.pref.chroot
+
+    # Also ignore Joshua-Riek's Linux kernel packages to switch to my
+    #  custom kernel on Ubuntu Noble
+    (
+        echo ""
+        echo "Package: linux-*-rockchip"
+        echo "Pin: release o=LP-PPA-jjriek-rockchip"
+        echo "Pin-Priority: -1"
+        echo ""
+        echo "Package: linux-rockchip*"
+        echo "Pin: release o=LP-PPA-jjriek-rockchip"
+        echo "Pin-Priority: -1"
+
+    ) >> config/archives/extra-ppas-ignore.pref.chroot
 fi
 
 # Snap packages to install
