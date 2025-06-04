@@ -10,7 +10,7 @@ permissions:
 jobs:
   prepare_release:
     name: Create release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,7 +26,7 @@ jobs:
       release_id: ${{ steps.release.outputs.id }}
 
   config:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Create martrix
     outputs:
       build_matrix: ${{ steps.build.outputs.build_matrix }}
@@ -64,7 +64,7 @@ jobs:
             echo "rootfs_matrix={\"include\":[${rootfs_matrix::-1}]}" >> $GITHUB_OUTPUT
 
   rootfs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Build rootfs 
     needs: [prepare_release, config]
     strategy:
@@ -112,7 +112,7 @@ jobs:
             if-no-files-found: error
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [rootfs, prepare_release, config]
     name: Build image 
     strategy:
