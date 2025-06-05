@@ -119,11 +119,7 @@ if [ "${SUITE}" == "noble" ]; then
         echo "Pin: release o=LP-PPA-jjriek-rockchip"
         echo "Pin-Priority: -1"
         echo ""
-        echo "Package: linux-*-rockchip"
-        echo "Pin: release o=LP-PPA-jjriek-rockchip"
-        echo "Pin-Priority: -1"
-        echo ""
-        echo "Package: linux-rockchip*"
+        echo "Package: linux-rockchip* linux-*-rockchip"
         echo "Pin: release o=LP-PPA-jjriek-rockchip"
         echo "Pin-Priority: -1"
 
