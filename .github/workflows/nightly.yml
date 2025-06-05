@@ -20,7 +20,7 @@ jobs:
         id: build
         run: |
             build_matrix=""
-            for file in config/boards/*; do
+            for file in config/boards/rock-*; do
                 COMPATIBLE_SUITES=()
                 COMPATIBLE_FLAVORS=()
                 # shellcheck disable=SC1090
