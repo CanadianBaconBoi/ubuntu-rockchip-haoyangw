@@ -99,6 +99,14 @@ if [ "${SUITE}" == "noble" ] || [ "${SUITE}" == "jammy" ]; then
 fi
 
 if [ "${SUITE}" == "noble" ]; then
+    # Pin custom kernel PPA
+    (
+        echo ""
+        echo "Package: *"
+        echo "Pin: release o=LP-PPA-haoyangw-rockchip-bsp"
+        echo "Pin-Priority: 1001"
+    ) >> config/archives/extra-ppas.pref.chroot
+
     # Ignore custom ubiquity package (mistake i made, uploaded to wrong ppa)
     (
         echo "Package: oem-*"
