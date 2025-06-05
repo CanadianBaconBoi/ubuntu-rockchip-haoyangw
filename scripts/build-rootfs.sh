@@ -111,9 +111,13 @@ if [ "${SUITE}" == "noble" ]; then
 
     ) > config/archives/extra-ppas-ignore.pref.chroot
 
-    # Also ignore Joshua-Riek's Linux kernel packages to switch to my
-    #  custom kernel on Ubuntu Noble
+    # Also ignore Joshua-Riek's dkms and Linux kernel packages to switch
+    #  to my custom kernel on Ubuntu Noble
     (
+        echo ""
+        echo "Package: aicrf-test aic8800-*"
+        echo "Pin: release o=LP-PPA-jjriek-rockchip"
+        echo "Pin-Priority: -1"
         echo ""
         echo "Package: linux-*-rockchip"
         echo "Pin: release o=LP-PPA-jjriek-rockchip"
