@@ -14,7 +14,8 @@ function config_image_hook__rock-5d() {
     local overlay="$2"
     local suite="$3"
 
-    if [ "${suite}" == "jammy" ] || [ "${suite}" == "noble" ]; then
+    # Only install panfork and libmali on jammy, which uses Rockchip BSP 5.10 kernel
+    if [ "${suite}" == "jammy" ]; then
         # Install panfork
         chroot "${rootfs}" add-apt-repository -y ppa:jjriek/panfork-mesa
         chroot "${rootfs}" apt-get update
@@ -23,7 +24,9 @@ function config_image_hook__rock-5d() {
 
         # Install libmali blobs alongside panfork
         chroot "${rootfs}" apt-get -y install libmali-g610-x11
+    fi
 
+    if [ "${suite}" == "jammy" ] || [ "${suite}" == "noble" ]; then
         # Install the rockchip camera engine
         chroot "${rootfs}" apt-get -y install camera-engine-rkaiq-rk3588
 
