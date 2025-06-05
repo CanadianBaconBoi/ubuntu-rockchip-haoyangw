@@ -19,28 +19,43 @@ jobs:
 
       - name: Create build matrix
         id: build
+        shell: bash
         run: |
             build_matrix=""
+            declare -A seen_suites
+            unique_suites=()
             for file in config/boards/rock-*; do
                 COMPATIBLE_SUITES=()
                 COMPATIBLE_FLAVORS=()
                 # shellcheck disable=SC1090
                 source "${file}"
                 for suite in "${COMPATIBLE_SUITES[@]}"; do
+                    # Build a list of unique suites defined across all boards
+                    if [[ -z "${seen_suites[$suite]}" ]]; then
+                        seen_suites[$suite]=1
+                        unique_suites+=("$suite")
+                    fi
+
                     for flavor in "${COMPATIBLE_FLAVORS[@]}"; do
-                    build_matrix+="{\"board\":\"$(basename "${file%.sh}")\",\"suite\":\"${suite}\",\"flavor\":\"${flavor}\"},"
+                        build_matrix+="{\"board\":\"$(basename "${file%.sh}")\",\"suite\":\"${suite}\",\"flavor\":\"${flavor}\"},"
                     done
                 done
             done
             echo "build_matrix={\"include\":[${build_matrix::-1}]}" >> $GITHUB_OUTPUT
+            # Export unique suites to a GITHUB_OUTPUT variable
+            echo "suites=$(IFS=,; echo "${unique_suites[*]}")" >> $GITHUB_OUTPUT
 
       - name: Create rootfs matrix
         id: rootfs
+        env:
+          suites: ${{ steps.build.outputs.suites }}
+        shell: bash
         run: |
             rootfs_matrix=""
-            for suite in config/suites/*; do
+            IFS=',' read -r -a unique_suites <<< "$suites"
+            for suite in "${unique_suites[@]}"; do
                 for flavor in config/flavors/*; do
-                    rootfs_matrix+="{\"suite\":\"$(basename "${suite%.sh}")\",\"flavor\":\"$(basename "${flavor%.sh}")\"},"
+                    rootfs_matrix+="{\"suite\":\"${suite}\",\"flavor\":\"$(basename "${flavor%.sh}")\"},"
                 done
             done
             echo "rootfs_matrix={\"include\":[${rootfs_matrix::-1}]}" >> $GITHUB_OUTPUT
