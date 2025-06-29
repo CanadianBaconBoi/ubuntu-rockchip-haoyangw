@@ -37,7 +37,7 @@ tmp_dir=$(mktemp -d)
 cd "${tmp_dir}" || exit 1
 
 # Clone the livecd rootfs fork
-git clone https://github.com/Joshua-Riek/livecd-rootfs
+git clone -b noble-mate https://github.com/haoyangw/livecd-rootfs.git
 cd livecd-rootfs || exit 1
 
 # Install build deps
@@ -148,6 +148,15 @@ if [ "${PROJECT}" == "ubuntu" ]; then
     # Specific packages to install for ubuntu desktop
     (
         echo "ubuntu-desktop-rockchip"
+        echo "oem-config-gtk"
+        echo "ubiquity-frontend-gtk"
+        echo "ubiquity-slideshow-ubuntu"
+        echo "localechooser-data"
+    ) >> config/package-lists/my.list.chroot
+elif [ "${PROJECT}" == "ubuntu-mate" ]; then
+    # Specific packages to install for ubuntu mate desktop
+    (
+        echo "ubuntu-mate-desktop-rockchip"
         echo "oem-config-gtk"
         echo "ubiquity-frontend-gtk"
         echo "ubiquity-slideshow-ubuntu"
