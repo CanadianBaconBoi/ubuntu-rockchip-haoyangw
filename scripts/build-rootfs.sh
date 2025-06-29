@@ -166,6 +166,7 @@ elif [ "${PROJECT}" == "ubuntu-mate" ]; then
         echo "ubuntu-mate-desktop-rockchip"
         echo "oem-config-gtk"
         echo "ubiquity-frontend-gtk"
+        echo "ubiquity-slideshow-ubuntu-mate"
         echo "ubiquity-ubuntu-artwork"
         echo "oem-config-slideshow-ubuntu-mate"
         echo "localechooser-data"
