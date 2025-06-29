@@ -166,7 +166,8 @@ elif [ "${PROJECT}" == "ubuntu-mate" ]; then
         echo "ubuntu-mate-desktop-rockchip"
         echo "oem-config-gtk"
         echo "ubiquity-frontend-gtk"
-        echo "ubiquity-slideshow-ubuntu"
+        echo "ubiquity-ubuntu-artwork"
+        echo "oem-config-slideshow-ubuntu-mate"
         echo "localechooser-data"
     ) >> config/package-lists/my.list.chroot
 else
