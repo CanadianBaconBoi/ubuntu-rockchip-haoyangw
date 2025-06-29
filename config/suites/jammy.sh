@@ -7,4 +7,4 @@ export KERNEL_REPO="https://github.com/Joshua-Riek/linux-rockchip.git"
 export KERNEL_BRANCH="jammy"
 export KERNEL_FLAVOR="rockchip"
 
-export EXTRA_PPAS="jjriek/rockchip jjriek/rockchip-multimedia"
+export EXTRA_PPAS="haoyangw/rockchip-bsp jjriek/rockchip jjriek/rockchip-multimedia"
