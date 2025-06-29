@@ -96,6 +96,13 @@ if [ "${SUITE}" == "noble" ] || [ "${SUITE}" == "jammy" ]; then
         echo "Pin: release o=LP-PPA-jjriek-rockchip-multimedia"
         echo "Pin-Priority: 1001"
     ) > config/archives/extra-ppas.pref.chroot
+    # Pin ubuntu meta packages for Rockchip
+    (
+        echo ""
+        echo "Package: ubuntu-*-rockchip"
+        echo "Pin: release o=LP-PPA-haoyangw-rockchip-bsp"
+        echo "Pin-Priority: 1001"
+    ) >> config/archives/extra-ppas.pref.chroot
 fi
 
 if [ "${SUITE}" == "noble" ]; then
