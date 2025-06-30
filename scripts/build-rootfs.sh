@@ -36,20 +36,13 @@ pushd .
 tmp_dir=$(mktemp -d)
 cd "${tmp_dir}" || exit 1
 
-# Clone the livecd rootfs fork
-git clone -b noble-mate https://github.com/haoyangw/livecd-rootfs.git
-cd livecd-rootfs || exit 1
-
-# Install build deps
-apt-get update
-apt-get build-dep . -y
-
-# Build the package
-dpkg-buildpackage -us -uc
+# Download the custom livecd rootfs package from my latest livecd-rootfs release
+wget -O livecd-rootfs_24.04.56_arm64.deb \
+	https://github.com/haoyangw/livecd-rootfs/releases/download/24.04.56-2/livecd-rootfs_24.04.56_arm64.deb
 
 # Install the custom livecd rootfs package
-apt-get install ../livecd-rootfs_*.deb --assume-yes --allow-downgrades --allow-change-held-packages
-dpkg -i ../livecd-rootfs_*.deb
+apt-get install ./livecd-rootfs_*.deb --assume-yes --allow-downgrades --allow-change-held-packages
+dpkg -i ./livecd-rootfs_*.deb
 apt-mark hold livecd-rootfs
 
 rm -rf "${tmp_dir}"
