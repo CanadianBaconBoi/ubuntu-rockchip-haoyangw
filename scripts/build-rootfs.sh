@@ -99,10 +99,10 @@ if [ "${SUITE}" == "noble" ] || [ "${SUITE}" == "jammy" ]; then
 fi
 
 if [ "${SUITE}" == "noble" ]; then
-    # Pin custom kernel PPA
+    # Pin custom kernel packages from my PPA
     (
         echo ""
-        echo "Package: *"
+        echo "Package: aicrf-test aic8800-* linux-rockchip* linux-*-rockchip"
         echo "Pin: release o=LP-PPA-haoyangw-rockchip-bsp"
         echo "Pin-Priority: 1001"
     ) >> config/archives/extra-ppas.pref.chroot
