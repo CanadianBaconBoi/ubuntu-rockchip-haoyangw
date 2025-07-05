@@ -165,6 +165,7 @@ if [ "${PROJECT}" == "ubuntu" ]; then
             echo "oem-config-slideshow-ubuntu-mate"
             echo "localechooser-data"
         ) >> config/package-lists/my.list.chroot
+    fi
 else
     # Specific packages to install for ubuntu server
     echo "ubuntu-server-rockchip" >> config/package-lists/my.list.chroot
