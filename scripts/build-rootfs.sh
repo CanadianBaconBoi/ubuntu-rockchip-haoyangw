@@ -145,25 +145,26 @@ fi
 echo "software-properties-common" > config/package-lists/my.list.chroot
 
 if [ "${PROJECT}" == "ubuntu" ]; then
-    # Specific packages to install for ubuntu desktop
-    (
-        echo "ubuntu-desktop-rockchip"
-        echo "oem-config-gtk"
-        echo "ubiquity-frontend-gtk"
-        echo "ubiquity-slideshow-ubuntu"
-        echo "localechooser-data"
-    ) >> config/package-lists/my.list.chroot
-elif [ "${PROJECT}" == "ubuntu-mate" ]; then
-    # Specific packages to install for ubuntu mate desktop
-    (
-        echo "ubuntu-mate-desktop-rockchip"
-        echo "oem-config-gtk"
-        echo "ubiquity-frontend-gtk"
-        echo "ubiquity-slideshow-ubuntu-mate"
-        echo "ubiquity-ubuntu-artwork"
-        echo "oem-config-slideshow-ubuntu-mate"
-        echo "localechooser-data"
-    ) >> config/package-lists/my.list.chroot
+    if [ -z "${UBUNTU_FLAVOR}" ] || [ "${UBUNTU_FLAVOR}" == "ubuntu" ]; then
+        # Specific packages to install for ubuntu desktop
+        (
+            echo "ubuntu-desktop-rockchip"
+            echo "oem-config-gtk"
+            echo "ubiquity-frontend-gtk"
+            echo "ubiquity-slideshow-ubuntu"
+            echo "localechooser-data"
+        ) >> config/package-lists/my.list.chroot
+    elif [ "${UBUNTU_FLAVOR}" == "mate" ]; then
+        # Specific packages to install for ubuntu mate desktop
+        (
+            echo "ubuntu-mate-desktop-rockchip"
+            echo "oem-config-gtk"
+            echo "ubiquity-frontend-gtk"
+            echo "ubiquity-slideshow-ubuntu-mate"
+            echo "ubiquity-ubuntu-artwork"
+            echo "oem-config-slideshow-ubuntu-mate"
+            echo "localechooser-data"
+        ) >> config/package-lists/my.list.chroot
 else
     # Specific packages to install for ubuntu server
     echo "ubuntu-server-rockchip" >> config/package-lists/my.list.chroot
