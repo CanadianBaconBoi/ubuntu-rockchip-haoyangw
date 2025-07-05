@@ -38,7 +38,7 @@ cd "${tmp_dir}" || exit 1
 
 # Download the custom livecd rootfs package from my latest livecd-rootfs release
 wget -O livecd-rootfs_24.04.56_arm64.deb \
-	https://github.com/haoyangw/livecd-rootfs/releases/download/24.04.56-3/livecd-rootfs_24.04.56_arm64.deb
+        https://github.com/haoyangw/livecd-rootfs/releases/download/24.04.56/livecd-rootfs_24.04.56_arm64.deb	
 
 # Install the custom livecd rootfs package
 apt-get install ./livecd-rootfs_*.deb --assume-yes --allow-downgrades --allow-change-held-packages
