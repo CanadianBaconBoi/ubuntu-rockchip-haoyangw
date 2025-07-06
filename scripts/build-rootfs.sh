@@ -33,8 +33,8 @@ fi
 
 function remove_gnome() {
 	if [ -n "${UBUNTU_FLAVOR}" ] && [ "${UBUNTU_FLAVOR}" != "ubuntu" ]; then
-		mkdir -p config/hooks/normal
-		cat <<-EOF > config/hooks/normal/999-remove-gnome.hook.chroot
+		mkdir -p config/hooks
+		cat <<-EOF > config/hooks/999-remove-gnome.chroot
 			#!/bin/sh
 			set -e
 
@@ -46,7 +46,7 @@ function remove_gnome() {
 			# Remove remaining GNOME packages
 			apt-get autoremove --yes || true
 		EOF
-		chmod +x config/hooks/normal/999-remove-gnome.hook.chroot
+		chmod +x config/hooks/999-remove-gnome.chroot
 	fi
 }
 
