@@ -32,20 +32,22 @@ if [[ -f ubuntu-${RELASE_VERSION}-preinstalled-${FLAVOR}-arm64.rootfs.tar.xz ]];
 fi
 
 function remove_gnome() {
-	mkdir -p config/hooks/normal
-	cat <<-EOF > config/hooks/normal/999-remove-gnome.hook.chroot
-		#!/bin/sh
-		set -e
+	if [ -n "${UBUNTU_FLAVOR}" ] && [ "${UBUNTU_FLAVOR}" != "ubuntu" ]; then
+		mkdir -p config/hooks/normal
+		cat <<-EOF > config/hooks/normal/999-remove-gnome.hook.chroot
+			#!/bin/sh
+			set -e
 
-		echo "Running hook to remove GNOME desktop packages..."
+			echo "Running hook to remove GNOME desktop packages..."
 
-		# Remove Ubuntu GNOME metapackages and key packages
-		apt-get purge --yes ubuntu-desktop ubuntu-desktop-minimal gdm3 gnome-shell || true
+			# Remove Ubuntu GNOME metapackages and key packages
+			apt-get purge --yes ubuntu-desktop ubuntu-desktop-minimal gdm3 gnome-shell || true
 
-		# Remove remaining GNOME packages
-		apt-get autoremove --yes || true
-	EOF
-	chmod +x config/hooks/normal/999-remove-gnome.hook.chroot
+			# Remove remaining GNOME packages
+			apt-get autoremove --yes || true
+		EOF
+		chmod +x config/hooks/normal/999-remove-gnome.hook.chroot
+	fi
 }
 
 pushd .
