@@ -90,7 +90,7 @@ function remove_gnome() {
 				xdg-desktop-portal-gnome xserver-xephyr xwayland yaru-theme-gnome-shell || true
 
 			# Reconfigure lightdm display manager
-			dpkg-reconfigure lightdm
+			dpkg-reconfigure -fnoninteractive lightdm
 
 			# Remove packages made redundant by removal of GNOME packages
 			apt-get autoremove --yes || true
