@@ -75,7 +75,7 @@ function remove_gnome() {
 
 			# List of Ubuntu (GNOME) desktop dependencies
 			desktop_deps=\$(get_dependencies ubuntu-desktop; get_dependencies ubuntu-desktop-minimal)
-			desktop_deps=\$("\$desktop_deps" | sort -u )
+			desktop_deps=\$(echo "\$desktop_deps" | sort -u)
 			# List of Ubuntu flavor's desktop dependencies
 			flavor_deps=\$(get_dependencies "$flavor_desktop" | sort -u)
 			# Remove flavor dependencies from list of GNOME dependencies to remove
