@@ -32,22 +32,42 @@ if [[ -f ubuntu-${RELASE_VERSION}-preinstalled-${FLAVOR}-arm64.rootfs.tar.xz ]];
 fi
 
 function remove_gnome() {
+	# Metapackage for given flavor's desktop, e.g. 'ubuntu-mate-desktop' for MATE flavor
+	flavor_desktop="$1"
+
 	if [ -n "${UBUNTU_FLAVOR}" ] && [ "${UBUNTU_FLAVOR}" != "ubuntu" ]; then
 		mkdir -p config/hooks
 		cat <<-EOF > config/hooks/999-remove-gnome.chroot
 			#!/bin/sh
 			set -e
 
+			function get_dependencies() {
+				pkg="$1"
+				# Output a list of all 'Depends' packages for given input package
+				apt-cache depends "$pkg" 2>/dev/null | \
+					grep -E '^\s+Depends:' | \
+					awk '{print $2}' | \
+					grep -vE '^<.*>$'
+			}
+
+			# List of Ubuntu (GNOME) desktop dependencies
+			desktop_deps=$(get_dependencies ubuntu-desktop; get_dependencies ubuntu-desktop-minimal)
+			desktop_deps=$("$desktop_deps" | sort -u )
+			# List of Ubuntu flavor's desktop dependencies
+			flavor_deps=$(get_dependencies "$flavor_desktop" | sort -u)
+			# Remove flavor dependencies from list of GNOME dependencies to remove
+			packages_to_remove=$(comm -23 <(echo "$desktop_deps") <(echo "$flavor_deps"))
+
 			echo "Running hook to remove GNOME desktop packages..."
 
-			# Remove Ubuntu GNOME metapackages and their dependencies
-			apt-get remove --auto-remove --yes ubuntu-desktop ubuntu-desktop-minimal || true
+			# Remove GNOME package dependencies
+			apt-get purge --auto-remove --yes "$packages_to_remove" || true
+
+			# Remove Ubuntu GNOME metapackages
+			apt-get purge --auto-remove --yes ubuntu-desktop ubuntu-desktop-minimal || true
 
 			# Reconfigure lightdm display manager
 			dpkg-reconfigure -fnoninteractive lightdm
-
-			# Remove packages made redundant by removal of GNOME packages
-			apt-get autoremove --yes || true
 		EOF
 		chmod +x config/hooks/999-remove-gnome.chroot
 	fi
@@ -189,7 +209,7 @@ if [ "${PROJECT}" == "ubuntu" ]; then
         ) >> config/package-lists/my.list.chroot
 
         # Remove GNOME packages installed by base Ubuntu config
-        remove_gnome
+        remove_gnome "ubuntu-mate-desktop"
     fi
 else
     # Specific packages to install for ubuntu server
