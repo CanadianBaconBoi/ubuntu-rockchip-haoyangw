@@ -31,6 +31,29 @@ if [[ -f ubuntu-${RELASE_VERSION}-preinstalled-${FLAVOR}-arm64.rootfs.tar.xz ]];
     exit 0
 fi
 
+function add_mate_fixes() {
+	# Prefix hook filename with '999-zzz' to ensure that hook is executed last
+	cat <<-'EOF' > config/hooks/999-zzz-mate-fixes.chroot
+		#!/bin/sh
+		set -e
+
+		echo "Compiling MATE gsettings schemas..."
+		glib-compile-schemas /usr/share/glib-2.0/schemas/ || true
+
+		echo "Updating APT cache..."
+		apt-get update
+
+		echo "Installing and configuring netplan..."
+		apt-get install -y netplan.io netplan-generator python3-netplan
+		cat <<'EOT' > /lib/netplan/00-network-manager-all.yaml
+			network:
+			  version: 2
+			  renderer: NetworkManager
+		EOT
+	EOF
+	chmod a+x config/hooks/999-zzz-mate-fixes.chroot
+}
+
 function remove_gnome() {
 	# Metapackage for given flavor's desktop, e.g. 'ubuntu-mate-desktop' for MATE flavor
 	flavor_desktop="$1"
@@ -210,6 +233,9 @@ if [ "${PROJECT}" == "ubuntu" ]; then
 
         # Remove GNOME packages installed by base Ubuntu config
         remove_gnome "ubuntu-mate-desktop"
+
+        # Fixes for MATE image
+        add_mate_fixes
     fi
 else
     # Specific packages to install for ubuntu server
