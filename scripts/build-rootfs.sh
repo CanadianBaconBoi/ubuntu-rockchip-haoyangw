@@ -40,54 +40,8 @@ function remove_gnome() {
 
 			echo "Running hook to remove GNOME desktop packages..."
 
-			# Remove Ubuntu GNOME metapackages and packages
-			apt-get purge --yes apg baobab cloud-init dmz-cursor-theme eog evince \
-				evince-common file-roller fprintd fwupd gamemode gamemode-daemon gdm3 \
-				gir1.2-accountsservice-1.0 gir1.2-gck-2 gir1.2-gcr-4 gir1.2-gdesktopenums-3.0 \
-				gir1.2-gdm-1.0 gir1.2-gmenu-3.0 gir1.2-gnomeautoar-0.1 gir1.2-gnomebg-4.0 \
-				gir1.2-gnomebluetooth-3.0 gir1.2-gnomedesktop-3.0 gir1.2-gnomedesktop-4.0 \
-				gir1.2-ibus-1.0 gir1.2-javascriptcoregtk-6.0 gir1.2-mutter-14 gir1.2-nma4-1.0 \
-				gir1.2-rsvg-2.0 gir1.2-totem-1.0 gir1.2-totemplparser-1.0 gir1.2-upowerglib-1.0 \
-				gir1.2-webkit-6.0 gkbd-capplet gnome-bluetooth-3-common gnome-bluetooth-sendto \
-				gnome-calculator gnome-calendar gnome-characters gnome-control-center \
-				gnome-control-center-data gnome-font-viewer gnome-initial-setup gnome-logs \
-				gnome-online-accounts gnome-power-manager gnome-remote-desktop \
-				gnome-session-bin gnome-session-common gnome-settings-daemon \
-				gnome-settings-daemon-common gnome-shell gnome-shell-common \
-				gnome-shell-extension-appindicator gnome-shell-extension-desktop-icons-ng \
-				gnome-shell-extension-ubuntu-dock gnome-shell-extension-ubuntu-tiling-assistant \
-				gnome-snapshot gnome-startup-applications gnome-system-monitor gnome-terminal \
-				gnome-terminal-data gnome-text-editor gnome-user-docs grilo-plugins-0.3-base \
-				gsettings-ubuntu-schemas gstreamer1.0-alsa gstreamer1.0-libcamera \
-				gstreamer1.0-packagekit gstreamer1.0-plugins-base-apps gstreamer1.0-tools ibus \
-				ibus-data ibus-gtk ibus-gtk3 ibus-gtk4 ibus-table libatk-adaptor \
-				libavahi-ui-gtk3-0 libcamera0.2 libcolord-gtk4-1t64 libcue2 \
-				libedataserverui4-1.0-0t64 libeditorconfig0 libei1 libeis1 libevdocument3-4t64 \
-				libevview3-3t64 libfprint-2-2 libfprint-2-tod1 libfreerdp-client3-3 \
-				libfreerdp-server3-3 libfreerdp3-3 libgamemode0 libgamemodeauto0 libgdm1 \
-				libgnome-bg-4-2t64 libgnome-bluetooth-3.0-13 libgnome-bluetooth-ui-3.0-13 \
-				libgnome-rr-4-2t64 libgnomekbd-common libgnomekbd8 libgoa-backend-1.0-2 \
-				libgom-1.0-0t64 libgsf-1-114 libgsf-1-common libgsound0t64 libgtksourceview-5-0 \
-				libgtksourceview-5-common libgupnp-av-1.0-3 libgupnp-dlna-2.0-4 libibus-1.0-5 \
-				libinih1 libjavascriptcoregtk-6.0-1 liblttng-ust-common1t64 \
-				liblttng-ust-ctl5t64 liblttng-ust1t64 libmalcontent-0-0 libmediaart-2.0-0 \
-				libmutter-14-0 libnautilus-extension4 libpam-fprintd libportal-gtk4-1 \
-				librygel-core-2.8-0 librygel-db-2.8-0 librygel-renderer-2.8-0 \
-				librygel-server-2.8-0 libsysmetrics1 libtotem0 libtracker-sparql-3.0-0 \
-				libtss2-esys-3.0.2-0t64 libtss2-mu-4.0.1-0t64 libtss2-rc0t64 libtss2-sys1t64 \
-				libtss2-tcti-cmd0t64 libtss2-tcti-device0t64 libtss2-tcti-libtpms0t64 \
-				libtss2-tcti-mssim0t64 libtss2-tcti-spi-helper0t64 libtss2-tcti-swtpm0t64 \
-				libtss2-tctildr0t64 libvncclient1 libwebkitgtk-6.0-4 libwinpr3-3 libxcb-res0 \
-				libxcb-xv0 mousetweaks mutter-common mutter-common-bin nautilus nautilus-data \
-				nautilus-extension-gnome-terminal nautilus-sendto \
-				network-manager-config-connectivity-ubuntu pipewire-alsa pipewire-audio \
-				plymouth-theme-spinner power-profiles-daemon python3-ibus-1.0 remmina \
-				remmina-common remmina-plugin-rdp remmina-plugin-secret remmina-plugin-vnc \
-				rygel switcheroo-control systemd-oomd tecla thunderbird totem totem-common \
-				totem-plugins tpm-udev tracker tracker-extract tracker-miner-fs ubuntu-desktop \
-				ubuntu-desktop-minimal ubuntu-docs ubuntu-session ubuntu-settings \
-				ubuntu-wallpapers ubuntu-wallpapers-noble xcursor-themes \
-				xdg-desktop-portal-gnome xserver-xephyr xwayland yaru-theme-gnome-shell || true
+			# Remove Ubuntu GNOME metapackages and their dependencies
+			apt-get remove --auto-remove --yes ubuntu-desktop ubuntu-desktop-minimal || true
 
 			# Reconfigure lightdm display manager
 			dpkg-reconfigure -fnoninteractive lightdm
