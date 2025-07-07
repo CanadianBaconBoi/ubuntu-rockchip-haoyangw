@@ -64,22 +64,31 @@ function remove_gnome() {
 			#!/bin/bash
 			set -e
 
-			function get_dependencies() {
+			function get_deps_of() {
 				pkg="\$1"
+				# 'Depends' or 'Recommends'
+				dep_type="\$2"
 				# Output a list of all 'Depends' packages for given input package
 				apt-cache depends "\$pkg" 2>/dev/null | \\
-					grep -E '^\\s+Depends:' | \\
+					grep -E "^\\s+\${dep_type}:" | \\
 					awk '{print \$2}' | \\
 					grep -vE '^<.*>\$'
 			}
 
 			# List of Ubuntu (GNOME) desktop dependencies
-			desktop_deps=\$(get_dependencies ubuntu-desktop; get_dependencies ubuntu-desktop-minimal)
-			desktop_deps=\$(echo "\$desktop_deps" | sort -u)
+			gnome_deps=\$(get_deps_of ubuntu-desktop Depends; get_deps_of ubuntu-desktop-minimal Depends)
+			gnome_recs=\$(get_deps_of ubuntu-desktop Recommends; get_deps_of ubuntu-desktop-minimal Recommends)
+			gnome_pkgs_full=\$(echo "\$gnome_deps"; echo "\$gnome_recs")
+			gnome_pkgs_full=\$(echo "\$gnome_pkgs_full" | sort -u)
+
 			# List of Ubuntu flavor's desktop dependencies
-			flavor_deps=\$(get_dependencies "$flavor_desktop" | sort -u)
-			# Remove flavor dependencies from list of GNOME dependencies to remove
-			packages_to_remove=\$(comm -23 <(echo "\$desktop_deps") <(echo "\$flavor_deps"))
+			flavor_deps=\$(get_deps_of "$flavor_desktop" Depends)
+			flavor_recs=\$(get_deps_of "$flavor_desktop" Recommends)
+			flavor_pkgs_full=\$(echo "\$flavor_deps"; echo "\$flavor_recs")
+			flavor_pkgs_full=\$(echo "\$flavor_pkgs_full" | sort -u)
+
+			# Exclude flavor dependencies from list of GNOME dependencies to remove
+			packages_to_remove=\$(comm -23 <(echo "\$gnome_pkgs_full") <(echo "\$flavor_pkgs_full"))
 
 			echo "Running hook to remove GNOME desktop packages..."
 
