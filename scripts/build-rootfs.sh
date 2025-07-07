@@ -76,16 +76,16 @@ function remove_gnome() {
 			}
 
 			# List of Ubuntu (GNOME) desktop dependencies
-			gnome_deps=\$(get_deps_of ubuntu-desktop Depends; get_deps_of ubuntu-desktop-minimal Depends)
-			gnome_recs=\$(get_deps_of ubuntu-desktop Recommends; get_deps_of ubuntu-desktop-minimal Recommends)
-			gnome_pkgs_full=\$(echo "\$gnome_deps"; echo "\$gnome_recs")
-			gnome_pkgs_full=\$(echo "\$gnome_pkgs_full" | sort -u)
+			gnome_pkgs_full=\$((get_deps_of ubuntu-desktop Depends; \\
+				get_deps_of ubuntu-desktop-minimal Depends; \\
+				get_deps_of ubuntu-desktop Recommends; \\
+				get_deps_of ubuntu-desktop-minimal Recommends \\
+				) | sort -u)
 
 			# List of Ubuntu flavor's desktop dependencies
-			flavor_deps=\$(get_deps_of "$flavor_desktop" Depends)
-			flavor_recs=\$(get_deps_of "$flavor_desktop" Recommends)
-			flavor_pkgs_full=\$(echo "\$flavor_deps"; echo "\$flavor_recs")
-			flavor_pkgs_full=\$(echo "\$flavor_pkgs_full" | sort -u)
+			flavor_pkgs_full=\$((get_deps_of "$flavor_desktop" Depends \\
+				get_deps_of "$flavor_desktop" Recommends \\
+				) | sort -u)
 
 			# Exclude flavor dependencies from list of GNOME dependencies to remove
 			packages_to_remove=\$(comm -23 <(echo "\$gnome_pkgs_full") <(echo "\$flavor_pkgs_full"))
