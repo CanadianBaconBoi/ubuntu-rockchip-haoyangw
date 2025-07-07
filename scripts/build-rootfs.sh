@@ -86,13 +86,15 @@ function remove_gnome() {
 			if [ -n "\$packages_to_remove" ]; then
 				# Remove GNOME package dependencies
 				echo "\$packages_to_remove" | xargs apt-get purge --auto-remove --yes || true
+
+				# Reconfigure lightdm display manager after removing gdm3
+				dpkg-reconfigure -fnoninteractive lightdm
 			fi
 
 			# Remove Ubuntu GNOME metapackages
 			apt-get purge --auto-remove --yes ubuntu-desktop ubuntu-desktop-minimal || true
 
-			# Reconfigure lightdm display manager
-			dpkg-reconfigure -fnoninteractive lightdm
+			
 		EOF
 		chmod +x config/hooks/999-remove-gnome.chroot
 	fi
