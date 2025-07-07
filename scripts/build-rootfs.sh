@@ -38,7 +38,7 @@ function remove_gnome() {
 	if [ -n "${UBUNTU_FLAVOR}" ] && [ "${UBUNTU_FLAVOR}" != "ubuntu" ]; then
 		mkdir -p config/hooks
 		cat <<-EOF > config/hooks/999-remove-gnome.chroot
-			#!/bin/sh
+			#!/bin/bash
 			set -e
 
 			function get_dependencies() {
