@@ -65,26 +65,26 @@ function remove_gnome() {
 			set -e
 
 			function get_dependencies() {
-				pkg="$1"
+				pkg="\$1"
 				# Output a list of all 'Depends' packages for given input package
-				apt-cache depends "$pkg" 2>/dev/null | \
-					grep -E '^\s+Depends:' | \
-					awk '{print $2}' | \
-					grep -vE '^<.*>$'
+				apt-cache depends "\$pkg" 2>/dev/null | \\
+					grep -E '^\\s+Depends:' | \\
+					awk '{print \$2}' | \\
+					grep -vE '^<.*>\$'
 			}
 
 			# List of Ubuntu (GNOME) desktop dependencies
-			desktop_deps=$(get_dependencies ubuntu-desktop; get_dependencies ubuntu-desktop-minimal)
-			desktop_deps=$("$desktop_deps" | sort -u )
+			desktop_deps=\$(get_dependencies ubuntu-desktop; get_dependencies ubuntu-desktop-minimal)
+			desktop_deps=\$("\$desktop_deps" | sort -u )
 			# List of Ubuntu flavor's desktop dependencies
-			flavor_deps=$(get_dependencies "$flavor_desktop" | sort -u)
+			flavor_deps=\$(get_dependencies "$flavor_desktop" | sort -u)
 			# Remove flavor dependencies from list of GNOME dependencies to remove
-			packages_to_remove=$(comm -23 <(echo "$desktop_deps") <(echo "$flavor_deps"))
+			packages_to_remove=\$(comm -23 <(echo "\$desktop_deps") <(echo "\$flavor_deps"))
 
 			echo "Running hook to remove GNOME desktop packages..."
 
 			# Remove GNOME package dependencies
-			apt-get purge --auto-remove --yes "$packages_to_remove" || true
+			apt-get purge --auto-remove --yes "\$packages_to_remove" || true
 
 			# Remove Ubuntu GNOME metapackages
 			apt-get purge --auto-remove --yes ubuntu-desktop ubuntu-desktop-minimal || true
