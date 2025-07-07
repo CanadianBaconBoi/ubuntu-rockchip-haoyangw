@@ -92,7 +92,7 @@ function remove_gnome() {
 			# Reconfigure lightdm display manager
 			dpkg-reconfigure lightdm
 
-			# Remove remaining GNOME packages
+			# Remove packages made redundant by removal of GNOME packages
 			apt-get autoremove --yes || true
 		EOF
 		chmod +x config/hooks/999-remove-gnome.chroot
