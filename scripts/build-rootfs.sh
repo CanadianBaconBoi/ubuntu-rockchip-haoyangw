@@ -76,28 +76,30 @@ function remove_gnome() {
 			}
 
 			# List of Ubuntu (GNOME) desktop dependencies
-			gnome_pkgs_full=\$((get_deps_of ubuntu-desktop Depends; \\
-				get_deps_of ubuntu-desktop-minimal Depends; \\
-				get_deps_of ubuntu-desktop Recommends; \\
-				get_deps_of ubuntu-desktop-minimal Recommends \\
-				) | sort -u)
+			gnome_deps=\$((get_deps_of ubuntu-desktop Depends; get_deps_of ubuntu-desktop-minimal Depends;) | sort -u)
+			gnome_recs=\$((get_deps_of ubuntu-desktop Recommends; get_deps_of ubuntu-desktop-minimal Recommends) | sort -u)
 
 			# List of Ubuntu flavor's desktop dependencies
-			flavor_pkgs_full=\$((get_deps_of "$flavor_desktop" Depends \\
-				get_deps_of "$flavor_desktop" Recommends \\
-				) | sort -u)
+			flavor_deps=\$(get_deps_of "$flavor_desktop" Depends | sort -u)
+			flavor_recs=\$(get_deps_of "$flavor_desktop" Recommends | sort -u)
 
 			# Exclude flavor dependencies from list of GNOME dependencies to remove
-			packages_to_remove=\$(comm -23 <(echo "\$gnome_pkgs_full") <(echo "\$flavor_pkgs_full"))
+			deps_to_remove=\$(comm -23 <(echo "\$gnome_deps") <(echo "\$flavor_deps"))
+			recs_to_remove=\$(comm -23 <(echo "\$gnome_recs") <(echo "\$flavor_recs"))
 
-			echo "Running hook to remove GNOME desktop packages..."
-
-			if [ -n "\$packages_to_remove" ]; then
+			if [ -n "\$deps_to_remove" ]; then
 				# Remove GNOME package dependencies
-				echo "\$packages_to_remove" | xargs apt-get purge --auto-remove --yes || true
+				echo "Removing GNOME package dependencies..."
+				echo "\$deps_to_remove" | xargs apt-get purge --auto-remove --yes || true
 
 				# Reconfigure lightdm display manager after removing gdm3
 				dpkg-reconfigure -fnoninteractive lightdm
+			fi
+
+			if [ -n "\$recs_to_remove" ]; then
+				# Remove GNOME package dependencies
+				echo "Removing GNOME recommended packages..."
+				echo "\$recs_to_remove" | xargs apt-get purge --auto-remove --yes || true
 			fi
 
 			# Remove Ubuntu GNOME metapackages
