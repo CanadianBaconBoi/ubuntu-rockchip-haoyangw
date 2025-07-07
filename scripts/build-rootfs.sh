@@ -83,8 +83,10 @@ function remove_gnome() {
 
 			echo "Running hook to remove GNOME desktop packages..."
 
-			# Remove GNOME package dependencies
-			apt-get purge --auto-remove --yes "\$packages_to_remove" || true
+			if [ -n "\$packages_to_remove" ]; then
+				# Remove GNOME package dependencies
+				echo "\$packages_to_remove" | xargs apt-get purge --auto-remove --yes || true
+			fi
 
 			# Remove Ubuntu GNOME metapackages
 			apt-get purge --auto-remove --yes ubuntu-desktop ubuntu-desktop-minimal || true
