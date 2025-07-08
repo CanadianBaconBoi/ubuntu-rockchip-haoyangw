@@ -84,19 +84,24 @@ pushd .
 tmp_dir=$(mktemp -d)
 cd "${tmp_dir}" || exit 1
 
-# Download the custom livecd rootfs package from my latest livecd-rootfs release
-if [ "${SUITE}" == "jammy" ]; then
-	# Use livecd-rootfs built from Ubuntu Jammy repo
-	wget -O livecd-rootfs_2.765.54_arm64.deb \
-		https://github.com/haoyangw/livecd-rootfs/releases/download/2.765.54-1/livecd-rootfs_2.765.54_arm64.deb
+# Clone the livecd rootfs fork
+if [ "${PROJECT}" == "ubuntu-mate" ]; then
+	git clone -b noble-mate https://github.com/haoyangw/livecd-rootfs.git livecd-rootfs
 else
-	wget -O livecd-rootfs_24.04.56_arm64.deb \
-		https://github.com/haoyangw/livecd-rootfs/releases/download/24.04.56-4/livecd-rootfs_24.04.56_arm64.deb
+	git clone -b main https://github.com/haoyangw/livecd-rootfs.git livecd-rootfs
 fi
+cd livecd-rootfs || exit 1
+
+# Install build deps
+apt-get update
+apt-get build-dep . -y
+
+# Build the package
+dpkg-buildpackage -us -uc
 
 # Install the custom livecd rootfs package
-apt-get install ./livecd-rootfs_*.deb --assume-yes --allow-downgrades --allow-change-held-packages
-dpkg -i ./livecd-rootfs_*.deb
+apt-get install ../livecd-rootfs_*.deb --assume-yes --allow-downgrades --allow-change-held-packages
+dpkg -i ../livecd-rootfs_*.deb
 apt-mark hold livecd-rootfs
 
 rm -rf "${tmp_dir}"
