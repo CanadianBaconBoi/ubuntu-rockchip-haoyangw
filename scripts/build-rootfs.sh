@@ -31,29 +31,6 @@ if [[ -f ubuntu-${RELASE_VERSION}-preinstalled-${FLAVOR}-arm64.rootfs.tar.xz ]];
     exit 0
 fi
 
-function add_mate_fixes() {
-	# Prefix hook filename with '999-zzz' to ensure that hook is executed last
-	cat <<-'EOF' > config/hooks/999-zzz-mate-fixes.chroot
-		#!/bin/sh
-		set -e
-
-		echo "Compiling MATE gsettings schemas..."
-		glib-compile-schemas /usr/share/glib-2.0/schemas/ || true
-
-		echo "Updating APT cache..."
-		apt-get update
-
-		echo "Installing and configuring netplan..."
-		apt-get install -y netplan.io netplan-generator python3-netplan
-		cat <<'EOT' > /lib/netplan/00-network-manager-all.yaml
-			network:
-			  version: 2
-			  renderer: NetworkManager
-		EOT
-	EOF
-	chmod a+x config/hooks/999-zzz-mate-fixes.chroot
-}
-
 function remove_gnome() {
 	# Metapackage for given flavor's desktop, e.g. 'ubuntu-mate-desktop' for MATE flavor
 	flavor_desktop="$1"
@@ -109,7 +86,7 @@ cd "${tmp_dir}" || exit 1
 
 # Download the custom livecd rootfs package from my latest livecd-rootfs release
 wget -O livecd-rootfs_24.04.56_arm64.deb \
-        https://github.com/haoyangw/livecd-rootfs/releases/download/24.04.56/livecd-rootfs_24.04.56_arm64.deb
+        https://github.com/haoyangw/livecd-rootfs/releases/download/24.04.56-4/livecd-rootfs_24.04.56_arm64.deb
 
 # Install the custom livecd rootfs package
 apt-get install ./livecd-rootfs_*.deb --assume-yes --allow-downgrades --allow-change-held-packages
@@ -216,36 +193,30 @@ fi
 echo "software-properties-common" > config/package-lists/my.list.chroot
 
 if [ "${PROJECT}" == "ubuntu" ]; then
-    if [ -z "${UBUNTU_FLAVOR}" ] || [ "${UBUNTU_FLAVOR}" == "ubuntu" ]; then
-        # Specific packages to install for ubuntu desktop
-        (
-            echo "ubuntu-desktop-rockchip"
-            echo "oem-config-gtk"
-            echo "ubiquity-frontend-gtk"
-            echo "ubiquity-slideshow-ubuntu"
-            echo "localechooser-data"
-        ) >> config/package-lists/my.list.chroot
-    elif [ "${UBUNTU_FLAVOR}" == "mate" ]; then
-        # Specific packages to install for ubuntu mate desktop
-        (
-            echo "ubuntu-mate-desktop-rockchip"
-            echo "oem-config-gtk"
-            echo "ubiquity-frontend-gtk"
-            echo "ubiquity-slideshow-ubuntu-mate"
-            echo "ubiquity-ubuntu-artwork"
-            echo "oem-config-slideshow-ubuntu-mate"
-            echo "localechooser-data"
-        ) >> config/package-lists/my.list.chroot
-
-        # Remove GNOME packages installed by base Ubuntu config
-        remove_gnome "ubuntu-mate-desktop"
-
-        # Fixes for MATE image
-        add_mate_fixes
-    fi
+	if [ -z "${UBUNTU_FLAVOR}" ] || [ "${UBUNTU_FLAVOR}" == "ubuntu" ]; then
+		# Specific packages to install for ubuntu desktop
+		(
+			echo "ubuntu-desktop-rockchip"
+			echo "oem-config-gtk"
+			echo "ubiquity-frontend-gtk"
+			echo "ubiquity-slideshow-ubuntu"
+			echo "localechooser-data"
+		) >> config/package-lists/my.list.chroot
+	fi
+elif [ "${PROJECT}" == "ubuntu-mate" ]; then
+	# Specific packages to install for ubuntu mate desktop
+	(
+		echo "ubuntu-mate-desktop-rockchip"
+		echo "oem-config-gtk"
+		echo "ubiquity-frontend-gtk"
+		echo "ubiquity-slideshow-ubuntu-mate"
+		echo "ubiquity-ubuntu-artwork"
+		echo "oem-config-slideshow-ubuntu-mate"
+		echo "localechooser-data"
+	) >> config/package-lists/my.list.chroot
 else
-    # Specific packages to install for ubuntu server
-    echo "ubuntu-server-rockchip" >> config/package-lists/my.list.chroot
+	# Specific packages to install for ubuntu server
+	echo "ubuntu-server-rockchip" >> config/package-lists/my.list.chroot
 fi
 
 # Build the rootfs
