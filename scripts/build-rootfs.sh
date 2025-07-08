@@ -155,6 +155,16 @@ if [ "${SUITE}" == "noble" ] || [ "${SUITE}" == "jammy" ]; then
         echo "Pin: release o=LP-PPA-haoyangw-rockchip-bsp"
         echo "Pin-Priority: 1001"
     ) >> config/archives/extra-ppas.pref.chroot
+    if [ "${PROJECT}" == "ubuntu-mate" ]; then
+        # Pin ubiquity packages on MATE flavor to prevent removal of 'cryptsetup'
+        # package
+        (
+            echo ""
+            echo "Package: oem-config* ubiquity*"
+            echo "Pin: release o=LP-PPA-haoyangw-rockchip-bsp"
+            echo "Pin-Priority: 1001"
+        ) >> config/archives/extra-ppas.pref.chroot
+    fi
 fi
 
 if [ "${SUITE}" == "noble" ]; then
