@@ -85,8 +85,14 @@ tmp_dir=$(mktemp -d)
 cd "${tmp_dir}" || exit 1
 
 # Download the custom livecd rootfs package from my latest livecd-rootfs release
-wget -O livecd-rootfs_24.04.56_arm64.deb \
-        https://github.com/haoyangw/livecd-rootfs/releases/download/24.04.56-4/livecd-rootfs_24.04.56_arm64.deb
+if [ "${SUITE}" == "jammy" ]; then
+	# Use livecd-rootfs built from Ubuntu Jammy repo
+	wget -O livecd-rootfs_2.765.54_arm64.deb \
+		https://github.com/haoyangw/livecd-rootfs/releases/download/2.765.54-1/livecd-rootfs_2.765.54_arm64.deb
+else
+	wget -O livecd-rootfs_24.04.56_arm64.deb \
+		https://github.com/haoyangw/livecd-rootfs/releases/download/24.04.56-4/livecd-rootfs_24.04.56_arm64.deb
+fi
 
 # Install the custom livecd rootfs package
 apt-get install ./livecd-rootfs_*.deb --assume-yes --allow-downgrades --allow-change-held-packages
