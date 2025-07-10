@@ -155,9 +155,12 @@ if [ "${SUITE}" == "noble" ] || [ "${SUITE}" == "jammy" ]; then
         echo "Pin: release o=LP-PPA-haoyangw-rockchip-bsp"
         echo "Pin-Priority: 1001"
     ) >> config/archives/extra-ppas.pref.chroot
+fi
+
+if [ "${SUITE}" == "jammy" ]; then
     if [ "${PROJECT}" == "ubuntu-mate" ]; then
         # Pin ubiquity packages on MATE flavor to prevent removal of 'cryptsetup'
-        # package
+        # package(and hence 'ubuntu-mate-desktop') on Ubuntu 22.04
         (
             echo ""
             echo "Package: oem-config* ubiquity*"
