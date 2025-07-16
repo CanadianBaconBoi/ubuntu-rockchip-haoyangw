@@ -1,0 +1,22 @@
+From 5c2828916052cae4a3d0d69ab426d4cbc841f63d Mon Sep 17 00:00:00 2001
+From: Mitchell Ma <machuang@radxa.com>
+Date: Thu, 3 Apr 2025 18:44:55 +0800
+Subject: [PATCH] configs: enable rock-3c CONFIG_ID_EEPROM
+
+Signed-off-by: Mitchell Ma <machuang@radxa.com>
+---
+ configs/rock-3c-rk3566_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configs/rock-3c-rk3566_defconfig b/configs/rock-3c-rk3566_defconfig
+index a870f16b1f7..790b431a44e 100644
+--- a/configs/rock-3c-rk3566_defconfig
++++ b/configs/rock-3c-rk3566_defconfig
+@@ -187,6 +187,7 @@ CONFIG_USB_OHCI_GENERIC=y
+ CONFIG_USB_DWC3=y
+ CONFIG_USB_DWC3_GADGET=y
+ CONFIG_USB_DWC3_GENERIC=y
++CONFIG_ID_EEPROM=y
+ CONFIG_USB_STORAGE=y
+ CONFIG_USB_GADGET=y
+ CONFIG_USB_GADGET_MANUFACTURER="Rockchip"

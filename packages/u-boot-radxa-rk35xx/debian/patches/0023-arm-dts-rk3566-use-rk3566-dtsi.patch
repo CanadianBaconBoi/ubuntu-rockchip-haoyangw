@@ -1,0 +1,51 @@
+From f7a5177938078bda5ee7d2f3f6070c5e009385ae Mon Sep 17 00:00:00 2001
+From: Jiali Chen <chenjiali@radxa.com>
+Date: Wed, 9 Jul 2025 16:45:49 +0800
+Subject: [PATCH] arm: dts: rk3566: use `rk3566.dtsi` instead of `rk3568.dtsi`
+
+Signed-off-by: Jiali Chen <chenjiali@radxa.com>
+---
+ arch/arm/dts/rk3566-radxa-cm3.dtsi  | 2 +-
+ arch/arm/dts/rk3566-radxa-zero3.dts | 2 +-
+ arch/arm/dts/rk3566-rock-3c.dts     | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm/dts/rk3566-radxa-cm3.dtsi b/arch/arm/dts/rk3566-radxa-cm3.dtsi
+index a436ad5aedc..e00ff7bfb44 100644
+--- a/arch/arm/dts/rk3566-radxa-cm3.dtsi
++++ b/arch/arm/dts/rk3566-radxa-cm3.dtsi
+@@ -6,7 +6,7 @@
+  */
+ 
+ /dts-v1/;
+-#include "rk3568.dtsi"
++#include "rk3566.dtsi"
+ #include "rk3568-u-boot.dtsi"
+ #include <dt-bindings/input/input.h>
+ 
+diff --git a/arch/arm/dts/rk3566-radxa-zero3.dts b/arch/arm/dts/rk3566-radxa-zero3.dts
+index 7e653deaae4..e3159eac061 100644
+--- a/arch/arm/dts/rk3566-radxa-zero3.dts
++++ b/arch/arm/dts/rk3566-radxa-zero3.dts
+@@ -5,7 +5,7 @@
+  */
+ 
+ /dts-v1/;
+-#include "rk3568.dtsi"
++#include "rk3566.dtsi"
+ #include "rk3568-u-boot.dtsi"
+ #include <dt-bindings/input/input.h>
+ 
+diff --git a/arch/arm/dts/rk3566-rock-3c.dts b/arch/arm/dts/rk3566-rock-3c.dts
+index eebdaad8bfb..c3c64e3be1f 100644
+--- a/arch/arm/dts/rk3566-rock-3c.dts
++++ b/arch/arm/dts/rk3566-rock-3c.dts
+@@ -5,7 +5,7 @@
+  */
+ 
+ /dts-v1/;
+-#include "rk3568.dtsi"
++#include "rk3566.dtsi"
+ #include "rk3568-u-boot.dtsi"
+ #include <dt-bindings/input/input.h>
+ 

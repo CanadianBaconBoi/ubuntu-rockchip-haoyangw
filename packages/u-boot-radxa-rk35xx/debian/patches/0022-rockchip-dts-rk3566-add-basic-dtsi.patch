@@ -1,0 +1,51 @@
+From 9421c9f43b6c4ff284097c56526a39a3195b10cf Mon Sep 17 00:00:00 2001
+From: Jiali Chen <chenjiali@radxa.com>
+Date: Wed, 9 Jul 2025 16:40:24 +0800
+Subject: [PATCH] rockchip: dts: rk3566: add basic dtsi
+
+Sync from linux-6.1-stan-rkr4.1: https://github.com/radxa/kernel/blob/linux-6.1-stan-rkr4.1/arch/arm64/boot/dts/rockchip/rk3566.dtsi
+And removed some useless nodes for uboot.
+It fixes some usb issues.
+
+Signed-off-by: Jiali Chen <chenjiali@radxa.com>
+---
+ arch/arm/dts/rk3566.dtsi | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+ create mode 100644 arch/arm/dts/rk3566.dtsi
+
+diff --git a/arch/arm/dts/rk3566.dtsi b/arch/arm/dts/rk3566.dtsi
+new file mode 100644
+index 00000000000..b3ff44bb2aa
+--- /dev/null
++++ b/arch/arm/dts/rk3566.dtsi
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2023 Rockchip Electronics Co., Ltd.
++ */
++
++#include "rk3568.dtsi"
++
++/ {
++	compatible = "rockchip,rk3566";
++};
++
++&power {
++	pd_pipe@RK3568_PD_PIPE {
++		reg = <RK3568_PD_PIPE>;
++		clocks = <&cru PCLK_PIPE>;
++		pm_qos = <&qos_pcie2x1>,
++			 <&qos_sata1>,
++			 <&qos_sata2>,
++			 <&qos_usb3_0>,
++			 <&qos_usb3_1>;
++		#power-domain-cells = <0>;
++	};
++};
++
++&usbdrd_dwc3 {
++	phys = <&u2phy0_otg>;
++	phy-names = "usb2-phy";
++	extcon = <&usb2phy0>;
++	maximum-speed = "high-speed";
++};

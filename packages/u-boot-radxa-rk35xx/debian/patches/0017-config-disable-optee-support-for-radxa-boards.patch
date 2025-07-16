@@ -1,0 +1,291 @@
+From 738cda44532c324e07296c95751e3083fa95f282 Mon Sep 17 00:00:00 2001
+From: Stephen Chen <stephen@radxa.com>
+Date: Wed, 30 Oct 2024 10:03:34 +0800
+Subject: [PATCH] config: disable OPTEE support for rk35xx radxa boards
+
+Signed-off-by: Stephen Chen <stephen@radxa.com>
+---
+ configs/radxa-cm3-io-rk3566_defconfig          | 2 --
+ configs/radxa-cm3i-io-rk3568_defconfig         | 2 --
+ configs/radxa-cm3j-rpi-cm4-io-rk3568_defconfig | 2 --
+ configs/radxa-cm5-io-rk3588s_defconfig         | 2 --
+ configs/radxa-cm5-rpi-cm4-io-rk3588s_defconfig | 2 --
+ configs/radxa-e20c-rk3528_defconfig            | 2 --
+ configs/radxa-e25-rk3568_defconfig             | 2 --
+ configs/radxa-e52c-rk3588s_defconfig           | 2 --
+ configs/radxa-e54c-rk3588s_defconfig           | 2 --
+ configs/radxa-nx5-io-rk3588s_defconfig         | 2 --
+ configs/rock-2-rk3528_defconfig                | 2 --
+ configs/rock-2a-rk3528_defconfig               | 2 --
+ configs/rock-3a-rk3568_defconfig               | 2 --
+ configs/rock-3a-sata-rk3568_defconfig          | 2 --
+ configs/rock-3c-rk3566_defconfig               | 2 --
+ configs/rock-5-itx-rk3588_defconfig            | 2 --
+ configs/rock-5a-rk3588s_defconfig              | 2 --
+ configs/rock-5a-spi-rk3588s_defconfig          | 2 --
+ configs/rock-5b-plus-rk3588_defconfig          | 2 --
+ configs/rock-5b-rk3588_defconfig               | 2 --
+ configs/rock-5c-rk3588s_defconfig              | 2 --
+ configs/rock-5c-spi-rk3588s_defconfig          | 2 --
+ configs/rock-5d-rk3588s_defconfig              | 2 --
+ configs/rock-5d-spi-rk3588s_defconfig          | 2 --
+ configs/rock-5t-rk3588_defconfig               | 2 --
+ 25 files changed, 50 deletions(-)
+
+diff --git a/configs/radxa-cm3-io-rk3566_defconfig b/configs/radxa-cm3-io-rk3566_defconfig
+index eaeeac60d90..ad258e17218 100644
+--- a/configs/radxa-cm3-io-rk3566_defconfig
++++ b/configs/radxa-cm3-io-rk3566_defconfig
+@@ -224,5 +224,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/radxa-cm3i-io-rk3568_defconfig b/configs/radxa-cm3i-io-rk3568_defconfig
+index c094dd8dbfe..989aa4a2a1f 100644
+--- a/configs/radxa-cm3i-io-rk3568_defconfig
++++ b/configs/radxa-cm3i-io-rk3568_defconfig
+@@ -227,5 +227,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/radxa-cm3j-rpi-cm4-io-rk3568_defconfig b/configs/radxa-cm3j-rpi-cm4-io-rk3568_defconfig
+index db4ce0ab062..dcc13aceff7 100644
+--- a/configs/radxa-cm3j-rpi-cm4-io-rk3568_defconfig
++++ b/configs/radxa-cm3j-rpi-cm4-io-rk3568_defconfig
+@@ -227,5 +227,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/radxa-cm5-io-rk3588s_defconfig b/configs/radxa-cm5-io-rk3588s_defconfig
+index 7059efa2ac6..6f8243c51b9 100644
+--- a/configs/radxa-cm5-io-rk3588s_defconfig
++++ b/configs/radxa-cm5-io-rk3588s_defconfig
+@@ -215,5 +215,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/radxa-cm5-rpi-cm4-io-rk3588s_defconfig b/configs/radxa-cm5-rpi-cm4-io-rk3588s_defconfig
+index 408b358fffa..f725d159ef0 100644
+--- a/configs/radxa-cm5-rpi-cm4-io-rk3588s_defconfig
++++ b/configs/radxa-cm5-rpi-cm4-io-rk3588s_defconfig
+@@ -215,5 +215,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/radxa-e20c-rk3528_defconfig b/configs/radxa-e20c-rk3528_defconfig
+index 51c1431c976..bd3b9b69a1a 100644
+--- a/configs/radxa-e20c-rk3528_defconfig
++++ b/configs/radxa-e20c-rk3528_defconfig
+@@ -198,5 +198,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/radxa-e25-rk3568_defconfig b/configs/radxa-e25-rk3568_defconfig
+index edb0ec60f74..f6b7dfdf8f8 100644
+--- a/configs/radxa-e25-rk3568_defconfig
++++ b/configs/radxa-e25-rk3568_defconfig
+@@ -225,5 +225,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/radxa-e52c-rk3588s_defconfig b/configs/radxa-e52c-rk3588s_defconfig
+index 6a66461d64f..d03f16d138c 100644
+--- a/configs/radxa-e52c-rk3588s_defconfig
++++ b/configs/radxa-e52c-rk3588s_defconfig
+@@ -216,5 +216,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/radxa-e54c-rk3588s_defconfig b/configs/radxa-e54c-rk3588s_defconfig
+index 9567fc3a982..e1f8c9f6280 100644
+--- a/configs/radxa-e54c-rk3588s_defconfig
++++ b/configs/radxa-e54c-rk3588s_defconfig
+@@ -216,5 +216,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/radxa-nx5-io-rk3588s_defconfig b/configs/radxa-nx5-io-rk3588s_defconfig
+index 7a165a155ea..57cbddd0d73 100644
+--- a/configs/radxa-nx5-io-rk3588s_defconfig
++++ b/configs/radxa-nx5-io-rk3588s_defconfig
+@@ -213,5 +213,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-2-rk3528_defconfig b/configs/rock-2-rk3528_defconfig
+index 965ec09177d..76715fd8908 100644
+--- a/configs/rock-2-rk3528_defconfig
++++ b/configs/rock-2-rk3528_defconfig
+@@ -198,8 +198,6 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+ CONFIG_CMD_PCI=y
+ CONFIG_NVME=y
+ CONFIG_PCI=y
+diff --git a/configs/rock-2a-rk3528_defconfig b/configs/rock-2a-rk3528_defconfig
+index 407fd879460..3a6a21a81e1 100644
+--- a/configs/rock-2a-rk3528_defconfig
++++ b/configs/rock-2a-rk3528_defconfig
+@@ -198,5 +198,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-3a-rk3568_defconfig b/configs/rock-3a-rk3568_defconfig
+index d25f22412f5..babe50996eb 100644
+--- a/configs/rock-3a-rk3568_defconfig
++++ b/configs/rock-3a-rk3568_defconfig
+@@ -224,5 +224,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-3a-sata-rk3568_defconfig b/configs/rock-3a-sata-rk3568_defconfig
+index b3069f32c2f..9d6aad41d80 100644
+--- a/configs/rock-3a-sata-rk3568_defconfig
++++ b/configs/rock-3a-sata-rk3568_defconfig
+@@ -224,8 +224,6 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+ CONFIG_AHCI=y
+ CONFIG_CMD_SCSI=y
+ CONFIG_CMD_SATA=y
+diff --git a/configs/rock-3c-rk3566_defconfig b/configs/rock-3c-rk3566_defconfig
+index 6a24c46db07..a870f16b1f7 100644
+--- a/configs/rock-3c-rk3566_defconfig
++++ b/configs/rock-3c-rk3566_defconfig
+@@ -224,5 +224,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-5-itx-rk3588_defconfig b/configs/rock-5-itx-rk3588_defconfig
+index 8f2865919d6..7853280768b 100644
+--- a/configs/rock-5-itx-rk3588_defconfig
++++ b/configs/rock-5-itx-rk3588_defconfig
+@@ -221,5 +221,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-5a-rk3588s_defconfig b/configs/rock-5a-rk3588s_defconfig
+index 658a91b3257..d7d0b845689 100644
+--- a/configs/rock-5a-rk3588s_defconfig
++++ b/configs/rock-5a-rk3588s_defconfig
+@@ -216,5 +216,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-5a-spi-rk3588s_defconfig b/configs/rock-5a-spi-rk3588s_defconfig
+index 9996b5cd88b..42094c1480d 100644
+--- a/configs/rock-5a-spi-rk3588s_defconfig
++++ b/configs/rock-5a-spi-rk3588s_defconfig
+@@ -212,6 +212,4 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+ CONFIG_PHY_ROCKCHIP_NANENG_COMBOPHY=y
+diff --git a/configs/rock-5b-plus-rk3588_defconfig b/configs/rock-5b-plus-rk3588_defconfig
+index 1d148d65cd9..c657259d7c4 100644
+--- a/configs/rock-5b-plus-rk3588_defconfig
++++ b/configs/rock-5b-plus-rk3588_defconfig
+@@ -215,5 +215,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-5b-rk3588_defconfig b/configs/rock-5b-rk3588_defconfig
+index 275101b6c9a..6832279aad6 100644
+--- a/configs/rock-5b-rk3588_defconfig
++++ b/configs/rock-5b-rk3588_defconfig
+@@ -214,5 +214,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-5c-rk3588s_defconfig b/configs/rock-5c-rk3588s_defconfig
+index c1b8cb44d47..b5e55ce4064 100644
+--- a/configs/rock-5c-rk3588s_defconfig
++++ b/configs/rock-5c-rk3588s_defconfig
+@@ -216,5 +216,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-5c-spi-rk3588s_defconfig b/configs/rock-5c-spi-rk3588s_defconfig
+index e8cb6095a98..2ee467b85ef 100644
+--- a/configs/rock-5c-spi-rk3588s_defconfig
++++ b/configs/rock-5c-spi-rk3588s_defconfig
+@@ -215,5 +215,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-5d-rk3588s_defconfig b/configs/rock-5d-rk3588s_defconfig
+index d565ef28ada..da29411cb00 100644
+--- a/configs/rock-5d-rk3588s_defconfig
++++ b/configs/rock-5d-rk3588s_defconfig
+@@ -216,5 +216,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-5d-spi-rk3588s_defconfig b/configs/rock-5d-spi-rk3588s_defconfig
+index ab3b87810eb..01690650535 100644
+--- a/configs/rock-5d-spi-rk3588s_defconfig
++++ b/configs/rock-5d-spi-rk3588s_defconfig
+@@ -215,5 +215,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
+diff --git a/configs/rock-5t-rk3588_defconfig b/configs/rock-5t-rk3588_defconfig
+index 63099b71da3..2e311f0d0cd 100644
+--- a/configs/rock-5t-rk3588_defconfig
++++ b/configs/rock-5t-rk3588_defconfig
+@@ -215,5 +215,3 @@ CONFIG_AVB_LIBAVB_AB=y
+ CONFIG_AVB_LIBAVB_ATX=y
+ CONFIG_AVB_LIBAVB_USER=y
+ CONFIG_RK_AVB_LIBAVB_USER=y
+-CONFIG_OPTEE_CLIENT=y
+-CONFIG_OPTEE_V2=y
