@@ -7,7 +7,7 @@ export BOARD_CPU="ARM Cortex A55"
 export UBOOT_PACKAGE="u-boot-radxa-rk35xx"
 export UBOOT_RULES_TARGET="radxa-zero3-rk3566"
 export COMPATIBLE_SUITES=("jammy" "noble")
-export COMPATIBLE_FLAVORS=("server" "desktop")
+export COMPATIBLE_FLAVORS=("server" "desktop" "mate")
 
 function config_image_hook__radxa-zero3() {
     local rootfs="$1"
