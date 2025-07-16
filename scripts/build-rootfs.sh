@@ -220,6 +220,14 @@ fi
     echo "lxd/classic=stable"
 ) > config/seeded-snaps
 
+if [ "${PROJECT}" == "ubuntu-mate" ] && [ "${SUITE}" == "jammy" ]; then
+	# Install MATE desktop's snap packages(removed in Ubuntu 24.04)
+	(
+		echo "software-boutique/classic=stable"
+		echo "ubuntu-mate-welcome/classic=stable"
+	) >> config/seeded-snaps
+fi
+
 # Generic packages to install
 echo "software-properties-common" > config/package-lists/my.list.chroot
 
