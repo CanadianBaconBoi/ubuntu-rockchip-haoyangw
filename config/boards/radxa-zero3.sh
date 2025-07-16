@@ -15,6 +15,9 @@ function config_image_hook__radxa-zero3() {
     local suite="$3"
 
     if [ "${suite}" == "jammy" ] || [ "${suite}" == "noble" ]; then
+        # Install the rockchip camera engine
+        chroot "${rootfs}" apt-get -y install camera-engine-rkaiq-rk3568
+
         # Kernel modules to blacklist
         (
             echo "blacklist aic8800_bsp"
