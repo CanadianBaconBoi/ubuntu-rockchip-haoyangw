@@ -155,6 +155,13 @@ if [ "${SUITE}" == "noble" ] || [ "${SUITE}" == "jammy" ]; then
         echo "Pin: release o=LP-PPA-haoyangw-rockchip-bsp"
         echo "Pin-Priority: 1001"
     ) >> config/archives/extra-ppas.pref.chroot
+    # Pin my U-Boot and RKAIQ fork to support my chosen boards
+    (
+        echo ""
+        echo "Package: u-boot-* camera-engine-rkaiq-rk35*"
+        echo "Pin: release o=LP-PPA-haoyangw-rockchip-bsp"
+        echo "Pin-Priority: 1001"
+    ) >> config/archives/extra-ppas.pref.chroot
 fi
 
 if [ "${SUITE}" == "jammy" ]; then
