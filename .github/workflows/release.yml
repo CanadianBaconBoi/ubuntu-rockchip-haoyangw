@@ -79,7 +79,7 @@ jobs:
             echo "rootfs_matrix={\"include\":[${rootfs_matrix::-1}]}" >> $GITHUB_OUTPUT
 
   rootfs:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04-arm
     name: Build rootfs 
     needs: [prepare_release, config]
     strategy:
@@ -127,7 +127,7 @@ jobs:
             if-no-files-found: error
 
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04-arm
     needs: [rootfs, prepare_release, config]
     name: Build image 
     strategy:
