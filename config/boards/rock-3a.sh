@@ -7,7 +7,7 @@ export BOARD_CPU="ARM Cortex A55"
 export UBOOT_PACKAGE="u-boot-turing-rk35xx"
 export UBOOT_RULES_TARGET="rock-3a-rk3568"
 export COMPATIBLE_SUITES=("noble")
-export COMPATIBLE_FLAVORS=("server" "desktop")
+export COMPATIBLE_FLAVORS=("server" "desktop" "mate")
 
 function config_image_hook__rock-3a() {
     local rootfs="$1"
