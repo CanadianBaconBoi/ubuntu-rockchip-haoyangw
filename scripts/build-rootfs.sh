@@ -162,12 +162,11 @@ if [ "${SUITE}" == "noble" ] || [ "${SUITE}" == "jammy" ]; then
         echo "Pin: release o=LP-PPA-haoyangw-rockchip-bsp"
         echo "Pin-Priority: 1001"
     ) >> config/archives/extra-ppas.pref.chroot
-fi
-
-if [ "${SUITE}" == "jammy" ]; then
     if [ "${PROJECT}" == "ubuntu-mate" ]; then
-        # Pin ubiquity packages on MATE flavor to prevent removal of 'cryptsetup'
-        # package(and hence 'ubuntu-mate-desktop') on Ubuntu 22.04
+	# Pin ubiquity packages on MATE flavor to fix:
+	# - Ubuntu 22.04: Undesirable removal of 'cryptsetup' package, a dependency
+	#   of 'ubuntu-mate-desktop'
+	# - Ubuntu 24.04: Black desktop wallpaper when running 'oem-config-gtk'
         (
             echo ""
             echo "Package: oem-config* ubiquity*"
@@ -175,7 +174,7 @@ if [ "${SUITE}" == "jammy" ]; then
             echo "Pin-Priority: 1001"
         ) >> config/archives/extra-ppas.pref.chroot
     fi
-fi
+fi # if [ "${SUITE}" == "noble" ] || [ "${SUITE}" == "jammy" ]
 
 if [ "${SUITE}" == "noble" ]; then
     # Pin custom kernel packages from my PPA
