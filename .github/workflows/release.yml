@@ -42,7 +42,7 @@ jobs:
             build_matrix=""
             declare -A seen_suites
             unique_suites=()
-            for file in config/boards/{rock,radxa}-*; do
+            for file in config/boards/orangepi-5-pro*; do
                 COMPATIBLE_SUITES=()
                 COMPATIBLE_FLAVORS=()
                 # shellcheck disable=SC1090
