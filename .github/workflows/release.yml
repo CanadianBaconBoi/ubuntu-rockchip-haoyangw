@@ -11,6 +11,8 @@ jobs:
   prepare_release:
     name: Create release
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -130,6 +132,8 @@ jobs:
     runs-on: ubuntu-22.04-arm
     needs: [rootfs, prepare_release, config]
     name: Build image 
+    permissions:
+      contents: write
     strategy:
         matrix: ${{ fromJson(needs.config.outputs.build_matrix) }}
     steps:
